@@ -1,0 +1,27 @@
+{
+  "name": "svelte-keybinds",
+  "version": "1.0.0",
+  "description": "Minimalistic keybinds interface, with rebinding and saving. Made for Svelte.",
+  "main": "Keybinds.svelte",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThaUnknown/svelte-keybinds.git"
+  },
+  "keywords": [
+    "keybinds",
+    "keyboard",
+    "svelte",
+    "binds",
+    "rebinding",
+    "dragdrop"
+  ],
+  "author": "ThaUnknown",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ThaUnknown/svelte-keybinds/issues"
+  },
+  "homepage": "https://github.com/ThaUnknown/svelte-keybinds#readme"
+}
