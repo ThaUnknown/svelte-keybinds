@@ -1,4 +1,9 @@
-# Svelte Keybinds
+<h1 align="center">
+	Svelte Keybinds
+</h1>
+<p align="center">
+  <img src="./docs/show.gif" alt="chat"><br>
+</p>
 
 ## Functions:
 ```jsx

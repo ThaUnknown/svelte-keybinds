@@ -1,6 +1,6 @@
 <script context="module">
   import { writable } from 'svelte/store';
-  import { keys, layout } from './src/src/maps.js';
+  import { keys, layout } from './maps.js';
 
   let kbn = null;
 
@@ -100,7 +100,7 @@
   }
 </script>
 
-<div class="keyboard">
+<div class="svelte-keybinds">
   {#each Object.values(keys) as key}
     {@const { size, dark, name } = key}
     <div
@@ -117,64 +117,64 @@
 </div>
 
 <style>
-  :global(body) {
-    background: rgb(53, 44, 29);
-  }
-  .keyboard {
+  .svelte-keybinds {
+    flex-shrink: 0;
     user-select: none;
     display: flex;
     flex-wrap: wrap;
-    width: 80em;
+    width: 82em;
     background: rgba(0, 0, 0, 0.8);
     border-radius: 0.4em;
     padding: 1em;
     color: #eee;
   }
 
-  .dark {
+  .svelte-keybinds .dark {
     background: #191c20 !important;
   }
 
-  .transparent {
+  .svelte-keybinds .transparent {
     opacity: 0.2 !important;
   }
 
-  .keyboard > div {
+  .svelte-keybinds > div {
     height: 4em;
     margin: 0.5em;
     background: #25282c;
     border-radius: 0.4em;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition-property: opacity, transform;
+    transition-duration: 0.2s;
+    transition-timing-function: ease;
   }
-  .keyboard > div > :global(*) {
-    pointer-events: none;
+  .svelte-keybinds > div > :global(*) {
+    pointer-events: none !important;
   }
-  .keyboard > div:hover {
+  .svelte-keybinds > div:hover {
     transform: scale(0.9);
   }
-  .w-50 {
-    width: 4em;
+  .svelte-keybinds .w-50 {
+    width: 4em !important;
   }
-  .w-75 {
-    width: 6.5em;
+  .svelte-keybinds .w-75 {
+    width: 6.5em !important;
   }
-  .w-85 {
-    width: 7.5em;
+  .svelte-keybinds .w-85 {
+    width: 7.5em !important;
   }
-  .w-90 {
-    width: 8em;
+  .svelte-keybinds .w-90 {
+    width: 8em !important;
   }
-  .w-100 {
-    width: 9em;
+  .svelte-keybinds .w-100 {
+    width: 9em !important;
   }
-  .w-110 {
-    width: 10em;
+  .svelte-keybinds .w-110 {
+    width: 10em !important;
   }
-  .w-115 {
-    width: 10.5em;
+  .svelte-keybinds .w-115 {
+    width: 10.5em !important;
   }
-  .w-300 {
-    width: 29em;
+  .svelte-keybinds .w-300 {
+    width: 29em !important;
   }
 </style>
