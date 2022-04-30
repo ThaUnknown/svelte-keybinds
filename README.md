@@ -7,11 +7,12 @@
 
 ## Functions:
 ```jsx
-import Keybinds, { binds, loadWithDefaults } from './Keybinds.svelte'
+import Keybinds, { binds, loadWithDefaults, condition } from './Keybinds.svelte'
 
 <Keybinds let:prop={item} autosave={true} clickable={true}>
 ```
 - `clickable` - runs functions when the user clicks the key in the UI
+- `condition` - async callback function any time a keybind is ran, if it returns true the keybind is ran, if it returns false it isnt
 - `binds` - store/writable, binds object
 - `autosave` - automatically saves to localstorage when a user changes binds, requires `id` in binds object
 - `loadWithDefaults(defaults)` - loads the stored keybinds from autosave, using specific defaults, if a new keybind was added it will be properly created
