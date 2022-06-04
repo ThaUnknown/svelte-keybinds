@@ -17,6 +17,7 @@ import Keybinds, { binds, loadWithDefaults, condition } from './Keybinds.svelte'
 - `autosave` - automatically saves to localstorage when a user changes binds, requires `id` in binds object
 - `loadWithDefaults(defaults)` - loads the stored keybinds from autosave, using specific defaults, if a new keybind was added it will be properly created
 
+On browsers which support the [keyboard API](https://caniuse.com/mdn-api_navigator_keyboard) this module will respect the user's keyboard layout [dworak etc].
 
 ## Usage:
 
