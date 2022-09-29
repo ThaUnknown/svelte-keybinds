@@ -1,113 +1,113 @@
-<script context="module">
-  import { writable } from 'svelte/store';
-  import { keys, layout } from './maps.js';
+<script context='module'>
+  import { writable } from 'svelte/store'
+  import { keys, layout } from './maps.js'
 
-  let kbn = null;
+  let kbn = null
 
-  export let binds = writable(null);
+  export const binds = writable(null)
   binds.subscribe((obj) => {
-    kbn = obj ?? {};
-  });
+    kbn = obj ?? {}
+  })
 
-  let cnd = null;
+  let cnd = null
 
-  export const condition = writable(() => true);
+  export const condition = writable(() => true)
   condition.subscribe((fn) => {
-    if (typeof fn !== 'function') throw new Error('Condition must be a function');
-    cnd = fn;
-  });
+    if (typeof fn !== 'function') throw new Error('Condition must be a function')
+    cnd = fn
+  })
 
-  window.addEventListener('keydown', runBind);
+  window.addEventListener('keydown', runBind)
 
-  async function runBind(e) {
-    if (await cnd(e)) kbn[layout[e.code] || e.code]?.fn?.(e);
+  async function runBind (e) {
+    if (await cnd(e)) kbn[layout[e.code] || e.code]?.fn?.(e)
   }
 
-  export function loadWithDefaults(defaults) {
-    const def = toIDmap(defaults);
-    const saved = JSON.parse(localStorage.getItem('thaunknown/svelte-keybinds'));
+  export function loadWithDefaults (defaults) {
+    const def = toIDmap(defaults)
+    const saved = JSON.parse(localStorage.getItem('thaunknown/svelte-keybinds'))
     for (const id in saved) {
-      saved[id].fn = def[id].fn;
+      saved[id].fn = def[id]?.fn
     }
-    binds.set(toKeyMap({ ...def, ...saved }));
+    binds.set(toKeyMap({ ...def, ...saved }))
   }
 
-  function toIDmap(target = {}) {
-    const obj = {};
+  function toIDmap (target = {}) {
+    const obj = {}
     for (const code in target) {
-      const bind = target[code];
-      obj[bind.id] = { ...bind, code };
+      const bind = target[code]
+      obj[bind.id] = { ...bind, code }
     }
-    return obj;
+    return obj
   }
 
-  function toKeyMap(target = {}) {
-    const obj = {};
+  function toKeyMap (target = {}) {
+    const obj = {}
     for (const code in target) {
-      const bind = target[code];
-      obj[bind.code] = { ...bind, code };
+      const bind = target[code]
+      obj[bind.code] = { ...bind, code }
     }
-    return obj;
+    return obj
   }
 
-  function save() {
-    localStorage.setItem('thaunknown/svelte-keybinds', JSON.stringify(toIDmap(kbn)));
+  function save () {
+    localStorage.setItem('thaunknown/svelte-keybinds', JSON.stringify(toIDmap(kbn)))
   }
 </script>
 
 <script>
-  export let autosave = false;
+  export let autosave = false
 
-  export let clickable = false;
+  export let clickable = false
 
-  const kbnref = kbn;
-  let dragged = null;
-  function draggable(node, code) {
-    let drag = false;
+  const kbnref = kbn
+  let dragged = null
+  function draggable (node, code) {
+    let drag = false
     node.addEventListener('dragstart', ({ target }) => {
-      dragged = target;
-      target.classList.add('transparent');
-      drag = true;
-    });
+      dragged = target
+      target.classList.add('transparent')
+      drag = true
+    })
     node.addEventListener('dragend', ({ target }) => {
-      target.classList.remove('transparent');
-      drag = false;
-    });
+      target.classList.remove('transparent')
+      drag = false
+    })
     node.addEventListener('dragover', (e) => {
-      e.dataTransfer.dropEffect = 'move';
-      e.preventDefault();
-      if (!drag) e.target.classList.add('transparent');
-    });
+      e.dataTransfer.dropEffect = 'move'
+      e.preventDefault()
+      if (!drag) e.target.classList.add('transparent')
+    })
     node.addEventListener('dragleave', ({ target }) => {
-      if (!drag) target.classList.remove('transparent');
-    });
+      if (!drag) target.classList.remove('transparent')
+    })
     node.addEventListener('drop', ({ target }) => {
-      target.style.opacity = null;
-      const targetcode = dragged.dataset.code;
+      target.style.opacity = null
+      const targetcode = dragged.dataset.code
       if (kbnref[code]) {
-        const temp = kbnref[targetcode];
-        kbnref[targetcode] = kbnref[code];
-        kbnref[code] = temp;
+        const temp = kbnref[targetcode]
+        kbnref[targetcode] = kbnref[code]
+        kbnref[code] = temp
       } else {
-        kbnref[code] = kbnref[targetcode];
-        delete kbnref[targetcode];
+        kbnref[code] = kbnref[targetcode]
+        delete kbnref[targetcode]
       }
-      binds.set(kbnref);
+      binds.set(kbnref)
       if (autosave === true) {
-        save();
+        save()
       }
-    });
+    })
   }
 </script>
 
-<div class="svelte-keybinds">
+<div class='svelte-keybinds'>
   {#each Object.values(keys) as key}
     {@const { size, dark, name } = key}
     <div
       class:dark
-      draggable={kbnref[name] ? true : false}
+      draggable={!!kbnref[name]}
       data-code={name}
-      class="w-{size || 50}"
+      class='w-{size || 50}'
       {...$$restProps}
       use:draggable={name}
       on:click={(e) => clickable && runBind(Object.assign(e, { code: name }))}>
