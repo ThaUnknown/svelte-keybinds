@@ -17,7 +17,7 @@
     cnd = fn
   })
 
-  window.addEventListener('keydown', runBind)
+  document.addEventListener('keydown', runBind)
 
   async function runBind (e) {
     if (await cnd(e)) kbn[layout[e.code] || e.code]?.fn?.(e)
