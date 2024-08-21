@@ -27,7 +27,11 @@
     const def = toIDmap(defaults)
     const saved = JSON.parse(localStorage.getItem('thaunknown/svelte-keybinds'))
     for (const id in saved) {
-      saved[id].fn = def[id]?.fn
+      if (def[id]) {
+        saved[id].fn = def[id].fn
+      } else {
+        delete saved[id]
+      }
     }
     binds.set(toKeyMap({ ...def, ...saved }))
   }
