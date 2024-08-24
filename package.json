@@ -1,6 +1,6 @@
 {
   "name": "svelte-keybinds",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Minimalistic keybinds interface, with rebinding and saving. Made for Svelte.",
   "main": "Keybinds.svelte",
   "scripts": {

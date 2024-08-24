@@ -28,7 +28,7 @@
     const saved = JSON.parse(localStorage.getItem('thaunknown/svelte-keybinds'))
     for (const id in saved) {
       if (def[id]) {
-        saved[id].fn = def[id].fn
+        saved[id] = { ...saved[id], ...def[id] }
       } else {
         delete saved[id]
       }
